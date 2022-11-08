@@ -1,12 +1,17 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { BsGithub } from 'react-icons/bs';
 import { AuthContext } from '../../../../context/AuthProvider/AuthProvider';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const Login = () => {
 
-    const { logIn } = useContext(AuthContext);
+    const { logIn, LogInWithGoogle } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
+
 
     const handleLogin = event => {
         event.preventDefault();
@@ -18,9 +23,21 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                form.reset();
+                navigate(from, { replace: true });
             })
             .then(err => console.error(err))
     }
+    const provider = new GoogleAuthProvider();
+    const loginGoogle = () => {
+        LogInWithGoogle(provider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .then(er => console.error(er))
+    }
+
 
     return (
         <div className="hero min-h-screen bg-base-200">
@@ -49,7 +66,7 @@ const Login = () => {
                         <button className="btn btn-primary">Login</button>
                     </div>
                     <div className="text-center mt-5">
-                        <button className="btn btn-circle bg-slate-200 border-none mr-5"><FcGoogle /></button>
+                        <button onClick={loginGoogle} className="btn btn-circle bg-slate-200 border-none mr-5"><FcGoogle /></button>
                         <button className="btn btn-circle  bg-black border-none"><BsGithub /></button>
                     </div>
                 </form>

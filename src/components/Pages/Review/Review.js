@@ -1,13 +1,11 @@
 import React from 'react';
 
-
-const Slider = () => {
-
+const Review = () => {
     return (
         <div>
-
+            <p>this is review</p>
         </div>
     );
 };
 
-export default Slider;
+export default Review;

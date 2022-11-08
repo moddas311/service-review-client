@@ -3,6 +3,7 @@ import Blog from "../../components/Pages/Blog/Blog";
 import Home from "../../components/Pages/Home/Home";
 import Login from "../../components/Pages/Login/Login/Login";
 import Register from "../../components/Pages/Login/Register/Register";
+import Review from "../../components/Pages/Review/Review";
 import Main from "../../layout/Main";
 
 const routes = createBrowserRouter([
@@ -25,6 +26,10 @@ const routes = createBrowserRouter([
             {
                 path: '/blog',
                 element: <Blog />
+            },
+            {
+                path: '/review',
+                element: <Review />
             }
         ]
     }
