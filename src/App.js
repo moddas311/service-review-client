@@ -1,13 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
-import NavBar from './components/Pages/Shared/NavBar';
-import Footer from './components/Pages/Shared/Footer';
+import { RouterProvider } from 'react-router-dom';
+import routes from './Routes/Routes/Routes';
+
 
 function App() {
   return (
     <div>
-      <NavBar />
-      <Footer />
+      <RouterProvider
+        router={routes}
+      />
     </div>
   );
 }
