@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { BsGithub } from 'react-icons/bs';
+import { AuthContext } from '../../../../context/AuthProvider/AuthProvider';
 
 const Login = () => {
+
+    const { logIn } = useContext(AuthContext);
 
     const handleLogin = event => {
         event.preventDefault();
@@ -11,6 +14,12 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password);
+        logIn(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .then(err => console.error(err))
     }
 
     return (
