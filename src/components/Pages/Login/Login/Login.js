@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
+import { BsGithub } from 'react-icons/bs';
 
 const Login = () => {
 
@@ -37,7 +39,12 @@ const Login = () => {
                     <div className="form-control mt-6">
                         <button className="btn btn-primary">Login</button>
                     </div>
+                    <div className="text-center mt-5">
+                        <button className="btn btn-circle bg-slate-200 border-none mr-5"><FcGoogle /></button>
+                        <button className="btn btn-circle  bg-black border-none"><BsGithub /></button>
+                    </div>
                 </form>
+
             </div>
         </div>
     );
