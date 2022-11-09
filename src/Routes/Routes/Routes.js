@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Blog from "../../components/Pages/Blog/Blog";
 import Details from "../../components/Pages/Details/Details/Details";
+import Review from "../../components/Pages/Details/Details/Review/Review";
 import Error from "../../components/Pages/Error/Error";
 import Home from "../../components/Pages/Home/Home";
 import Login from "../../components/Pages/Login/Login/Login";
@@ -37,6 +38,12 @@ const routes = createBrowserRouter([
             {
                 path: '/profile',
                 element: <Profile />
+            }
+            ,
+            {
+                path: '/review/:id',
+                element: <Review />,
+                loader: ({ params }) => fetch(`http://localhost:5000/services/${params.id}`)
             }
         ]
     }

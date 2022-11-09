@@ -11,8 +11,8 @@ const NavBar = () => {
     const handleLogOut = () => {
         logOut()
             .then(result => {
-                // const user = result.user;
-                // // console.log(user);
+                const user = result.user;
+                console.log(user);
             })
             .then(er => console.error(er));
     }
@@ -29,10 +29,17 @@ const NavBar = () => {
                     <li onClick={handleLogOut} className='font-semibold'><Link>Logout</Link></li>
                     <Link to='/profile' className='mt-auto'>
                         {user?.photoURL ?
-                            <img className='btn btn-circle border-none h-8'
-                                src={user?.photoURL} alt='' />
-                            :
-                            <FaUser className='bg-white mb-4'></FaUser>
+                            <>
+                                <img className='btn btn-circle border-none h-8'
+                                    src={user?.photoURL} alt='' />
+                                <p>{user?.displayName}</p>
+                            </>
+
+                            : <>
+                                <p>{user?.displayName}</p>
+                                <FaUser className='bg-white mb-4'></FaUser>
+                            </>
+
                         }
                     </Link>
                 </>
