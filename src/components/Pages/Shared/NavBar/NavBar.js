@@ -11,27 +11,28 @@ const NavBar = () => {
     const handleLogOut = () => {
         logOut()
             .then(result => {
-                const user = result.user;
-                // console.log(user);
+                // const user = result.user;
+                // // console.log(user);
             })
             .then(er => console.error(er));
     }
 
     const menuItems = <>
 
+
+        <li className='font-semibold'><Link to='/'>Home</Link></li>
+        <li className='font-semibold'><Link to='/blog'>Blog</Link></li>
         {
             user?.email ?
                 <>
-                    <li className='font-semibold'><Link to='/'>Home</Link></li>
                     <li className='font-semibold'><Link to='/review'>Review</Link></li>
-                    <li className='font-semibold'><Link to='/blog'>Blog</Link></li>
                     <li onClick={handleLogOut} className='font-semibold'><Link>Logout</Link></li>
                     <Link to='/profile' className='mt-auto'>
                         {user?.photoURL ?
                             <img className='btn btn-circle border-none h-8'
-                                src={user?.photoURL} alt=''/>
+                                src={user?.photoURL} alt='' />
                             :
-                            <FaUser className='bg-white'></FaUser>
+                            <FaUser className='bg-white mb-4'></FaUser>
                         }
                     </Link>
                 </>
@@ -41,10 +42,6 @@ const NavBar = () => {
                     <li className='font-semibold'><Link to='/register'>Register</Link></li>
                 </>
         }
-
-
-
-
     </>
 
     return (
@@ -58,6 +55,7 @@ const NavBar = () => {
                 <Link to='/' className="btn btn-ghost border-none h-10 w-28 ">
                     <img className='w-full h-full rounded-md' src={logo} alt="" />
                 </Link>
+                <h4 className='text-xl font-sans font-semibold text-gray-600'>M0DD∆51R's Photography</h4>
             </div>
             <div className="navbar-end hidden lg:flex">
                 <ul className="menu menu-horizontal pr-5">
