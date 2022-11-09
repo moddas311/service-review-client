@@ -25,12 +25,12 @@ const NavBar = () => {
         {
             user?.email ?
                 <>
-                    <li className='font-semibold'><Link to='/review'>Review</Link></li>
+                    <li className='font-semibold'><Link to='/clientReviews'>ClientReviews</Link></li>
                     <li onClick={handleLogOut} className='font-semibold'><Link>Logout</Link></li>
-                    <Link to='/profile' className='mt-auto'>
+                    <Link to='/profile' className='my-auto'>
                         {user?.photoURL ?
                             <>
-                                <img className='btn btn-circle border-none h-8'
+                                <img className='btn btn-circle border-none'
                                     src={user?.photoURL} alt='' />
                                 <p>{user?.displayName}</p>
                             </>

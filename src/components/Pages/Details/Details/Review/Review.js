@@ -1,9 +1,12 @@
-import React from 'react';
-import { useLoaderData } from 'react-router-dom';
-import { AiFillStar } from 'react-icons/ai';
+import React, { useContext } from 'react';
+import { Link, useLoaderData } from 'react-router-dom';
+import { AiFillStar, AiOutlineArrowRight } from 'react-icons/ai';
+import UpdateReview from './UpdateReview/UpdateReview';
+import { AuthContext } from '../../../../../context/AuthProvider/AuthProvider';
 
 const Review = () => {
     const service = useLoaderData();
+    const { user } = useContext(AuthContext);
     const { serviceName, retings, img, price, description } = service;
     return (
         <div className='grid sm:grid-cols-1 lg:grid-cols-2 mx-auto gap-10 pl-10 py-10'>
@@ -20,8 +23,18 @@ const Review = () => {
                     </div>
                 </div>
             </div>
-            <div>
-                div
+            <div className='text-center my-auto'>
+                {
+                    user?.email ?
+                        <>
+                            <UpdateReview service={service} />
+                        </>
+                        :
+                        <>
+                            <h3 className='text-3xl pb-10'>Please! Login before Review</h3>
+                            <Link to='/login' className='btn btn-outline border-none bg-gray-200'>Please Login<AiOutlineArrowRight /></Link>
+                        </>
+                }
             </div>
         </div>
     );

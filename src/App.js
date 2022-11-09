@@ -1,6 +1,7 @@
 import './App.css';
 import { RouterProvider } from 'react-router-dom';
 import routes from './Routes/Routes/Routes';
+import { ToastContainer } from 'react-toastify';
 
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
       <RouterProvider
         router={routes}
       />
+      <ToastContainer />
     </div>
   );
 }
