@@ -15,7 +15,7 @@ const RecentReviews = () => {
             .then(res => res.json())
             .then(data => setLatestReviews(data))
 
-    }, [user?.email]);
+    }, []);
 
     return (
         <div className='my-10 p-10 border-red-400'>

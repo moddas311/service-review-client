@@ -7,7 +7,7 @@ const auth = getAuth(app);
 
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
 
 
@@ -25,11 +25,16 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, provider);
     }
 
+    const logInWithGithub = (provider) => {
+        return signInWithPopup(auth, provider);
+    }
+
     const updateUserProfile = (profile) => {
         return updateProfile(auth.currentUser, profile)
     }
 
     const logOut = () => {
+        localStorage.removeItem('reviewToken');
         return signOut(auth);
     }
 
@@ -39,19 +44,21 @@ const AuthProvider = ({ children }) => {
             setUser(currentUser);
             setLoading(false);
         });
-        return () => {
-            return unsubscribe();
-        }
+        return () => unsubscribe();
+
+
     }, [])
 
     const authInfo = {
         user,
         loading,
+        setUser,
         createUser,
         logIn,
         updateUserProfile,
         logOut,
-        LogInWithGoogle
+        LogInWithGoogle,
+        logInWithGithub
     }
     return (
         <AuthContext.Provider value={authInfo}>

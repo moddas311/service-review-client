@@ -8,7 +8,8 @@ import useTitle from '../../../hooks/useTitle';
 
 
 const Home = () => {
-    useTitle('Home')
+    useTitle('Home');
+
     return (
         <div>
             <Banner />

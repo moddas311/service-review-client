@@ -3,12 +3,15 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { BsGithub } from 'react-icons/bs';
 import { AuthContext } from '../../../../context/AuthProvider/AuthProvider';
-import { GoogleAuthProvider } from 'firebase/auth';
+import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import useTitle from '../../../../hooks/useTitle';
+import { setUtilitiesToken } from '../../../../utilities/utilities';
+
 
 const Login = () => {
 
-    const { logIn, LogInWithGoogle } = useContext(AuthContext);
+
+    const { logIn, LogInWithGoogle, logInWithGithub } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
@@ -19,15 +22,31 @@ const Login = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
         logIn(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
-                form.reset();
-                navigate(from, { replace: true });
+
+                const currentUser = {
+                    email: user.email
+                }
+                console.log(currentUser);
+
+                // jwt token 
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                        authorization: `Bearer ${localStorage.getItem('reviewToken')}`
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('reviewToken', data.token);
+                        navigate(from, { replace: true });
+                    })
             })
-            .then(err => console.error(err))
+            .catch(err => console.error(err))
     }
     const provider = new GoogleAuthProvider();
     const loginGoogle = () => {
@@ -35,8 +54,19 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                setUtilitiesToken(user);
             })
-            .then(er => console.error(er))
+            .catch(er => console.error(er))
+    }
+    const gitProvider = new GithubAuthProvider();
+    const handleGithub = () => {
+        logInWithGithub(gitProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                setUtilitiesToken(user);
+            })
+            .catch(er => console.error(er))
     }
 
 
@@ -68,12 +98,13 @@ const Login = () => {
                     </div>
                     <div className="text-center mt-5">
                         <button onClick={loginGoogle} className="btn btn-circle bg-slate-200 border-none mr-5"><FcGoogle /></button>
-                        <button className="btn btn-circle  bg-black border-none"><BsGithub /></button>
+                        <button onClick={handleGithub} className="btn btn-circle  bg-black border-none"><BsGithub /></button>
                     </div>
                 </form>
 
             </div>
         </div>
+
     );
 };
 

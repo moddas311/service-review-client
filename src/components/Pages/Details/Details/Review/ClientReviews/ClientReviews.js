@@ -6,23 +6,36 @@ import ClientReviewRow from './ClientReviewRow';
 
 const ClientReviews = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const [reviews, setReviews] = useState([]);
     useTitle('MyReviews')
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/reviews?email=${user?.email}`)
-            .then(res => res.json())
+        fetch(`http://localhost:5000/reviews?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('reviewToken')}`
+            }
+        })
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    return logOut()
+                }
+                return res.json()
+            })
             .then(data => setReviews(data))
 
-    }, [user?.email]);
+    }, [user?.email, logOut]);
 
     const handleDelete = id => {
         const proceed = window.confirm('Are You Sure!, You Want To Delete Your Review?');
         if (proceed) {
             fetch(`http://localhost:5000/reviews/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('reviewToken')}`
+                }
+
             })
                 .then(res => res.json())
                 .then(data => {

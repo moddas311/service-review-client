@@ -8,8 +8,6 @@ const Details = () => {
 
     const [services, setServices] = useState([]);
 
-    console.log(services.service_name);
-
     useTitle('Details')
 
     useEffect(() => {
