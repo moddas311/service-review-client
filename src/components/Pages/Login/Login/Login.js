@@ -4,6 +4,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { BsGithub } from 'react-icons/bs';
 import { AuthContext } from '../../../../context/AuthProvider/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
+import useTitle from '../../../../hooks/useTitle';
 
 const Login = () => {
 
@@ -11,7 +12,7 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
-
+    useTitle('Login')
 
     const handleLogin = event => {
         event.preventDefault();

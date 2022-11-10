@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+import useTitle from '../../../hooks/useTitle';
 
 const Profile = () => {
     const { user } = useContext(AuthContext);
 
     const { displayName, email, photoURL } = user;
+    useTitle('Profile')
 
     return (
         <div className='justify-center'>

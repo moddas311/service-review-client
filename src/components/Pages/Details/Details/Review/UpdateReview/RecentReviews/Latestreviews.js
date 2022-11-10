@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
-import { AuthContext } from '../../../../../../context/AuthProvider/AuthProvider';
+import { AuthContext } from '../../../../../../../context/AuthProvider/AuthProvider';
+import useTitle from '../../../../../../../hooks/useTitle';
 
-const ClientReviewRow = ({ review, handleDelete }) => {
-
+const Latestreviews = ({ latestReview }) => {
     const { user } = useContext(AuthContext);
-    const { _id, client, serviceName, email, reviewMessage } = review;
-    
-
+    const { client, serviceName, email, reviewMessage } = latestReview;
+    useTitle('LatestReviews')
 
     return (
         <tr>
@@ -27,16 +26,11 @@ const ClientReviewRow = ({ review, handleDelete }) => {
                 </div>
             </td>
             <td>
-                {serviceName}
+                <div className="font-bold">{serviceName}</div>
+                <div className="text-sm opacity-50">{reviewMessage}</div>
             </td>
-            <td>
-                {reviewMessage}
-            </td>
-            <th>
-                <button onClick={() => handleDelete(_id)} className="btn btn-ghost btn-xs">Delete</button>
-            </th>
         </tr>
     );
 };
 
-export default ClientReviewRow;
+export default Latestreviews;

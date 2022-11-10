@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../../../../context/AuthProvider/AuthProvider';
+import useTitle from '../../../../../../hooks/useTitle';
 import ClientReviewRow from './ClientReviewRow';
 
 
@@ -7,6 +8,7 @@ const ClientReviews = () => {
 
     const { user } = useContext(AuthContext);
     const [reviews, setReviews] = useState([]);
+    useTitle('MyReviews')
 
 
     useEffect(() => {
@@ -14,7 +16,25 @@ const ClientReviews = () => {
             .then(res => res.json())
             .then(data => setReviews(data))
 
-    }, [user?.email])
+    }, [user?.email]);
+
+    const handleDelete = id => {
+        const proceed = window.confirm('Are You Sure!, You Want To Delete Your Review?');
+        if (proceed) {
+            fetch(`http://localhost:5000/reviews/${id}`, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.deletedCount > 0) {
+                        alert('Review removed successfully!');
+                        const remaining = reviews.filter(review => review._id !== id);
+                        setReviews(remaining)
+                    }
+                })
+        }
+    }
 
     return (
         <div className='my-10 p-10 border-red-400'>
@@ -34,6 +54,7 @@ const ClientReviews = () => {
                             reviews.map(review => <ClientReviewRow
                                 key={review._id}
                                 review={review}
+                                handleDelete={handleDelete}
                             />)
                         }
                     </tbody>

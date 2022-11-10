@@ -25,7 +25,7 @@ const NavBar = () => {
         {
             user?.email ?
                 <>
-                    <li className='font-semibold'><Link to='/clientReviews'>ClientReviews</Link></li>
+                    <li className='font-semibold'><Link to='/clientReviews'>MyReviews</Link></li>
                     <li onClick={handleLogOut} className='font-semibold'><Link>Logout</Link></li>
                     <Link to='/profile' className='my-auto'>
                         {user?.photoURL ?
@@ -34,12 +34,10 @@ const NavBar = () => {
                                     src={user?.photoURL} alt='' />
                                 <p>{user?.displayName}</p>
                             </>
-
-                            : <>
+                            : <div className='text-center'>
                                 <p>{user?.displayName}</p>
                                 <FaUser className='bg-white mb-4'></FaUser>
-                            </>
-
+                            </div>
                         }
                     </Link>
                 </>

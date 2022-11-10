@@ -3,11 +3,14 @@ import { Link, useLoaderData } from 'react-router-dom';
 import { AiFillStar, AiOutlineArrowRight } from 'react-icons/ai';
 import UpdateReview from './UpdateReview/UpdateReview';
 import { AuthContext } from '../../../../../context/AuthProvider/AuthProvider';
+import RecentReviews from './UpdateReview/RecentReviews/RecentReviews';
+import useTitle from '../../../../../hooks/useTitle';
 
 const Review = () => {
     const service = useLoaderData();
     const { user } = useContext(AuthContext);
     const { serviceName, retings, img, price, description } = service;
+    useTitle('Review')
     return (
         <div className='grid sm:grid-cols-1 lg:grid-cols-2 mx-auto gap-10 pl-10 py-10'>
             <div className="card bg-base-100 shadow-xl ">
@@ -26,9 +29,14 @@ const Review = () => {
             <div className='text-center my-auto'>
                 {
                     user?.email ?
-                        <>
-                            <UpdateReview service={service} />
-                        </>
+                        <div>
+                            <div className='my-5'>
+                                <RecentReviews />
+                            </div>
+                            <div>
+                                <UpdateReview service={service} />
+                            </div>
+                        </div>
                         :
                         <>
                             <h3 className='text-3xl pb-10'>Please! Login before Review</h3>

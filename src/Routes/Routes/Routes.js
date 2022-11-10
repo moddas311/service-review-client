@@ -9,6 +9,7 @@ import Login from "../../components/Pages/Login/Login/Login";
 import Register from "../../components/Pages/Login/Register/Register";
 import Profile from "../../components/Pages/Profile/Profile";
 import Main from "../../layout/Main";
+import PrivateRoutes from "./PrivateRoutes/PrivateRoutes";
 
 const routes = createBrowserRouter([
     {
@@ -48,7 +49,7 @@ const routes = createBrowserRouter([
             },
             {
                 path: '/clientReviews',
-                element: <ClientReviews />
+                element: <PrivateRoutes><ClientReviews /></PrivateRoutes>
             }
         ]
     }
