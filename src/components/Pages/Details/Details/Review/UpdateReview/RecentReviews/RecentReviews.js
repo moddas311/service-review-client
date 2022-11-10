@@ -11,9 +11,11 @@ const RecentReviews = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/latestReviews')
+        fetch('https://service-review-assignment11-server.vercel.app/latestReviews')
             .then(res => res.json())
-            .then(data => setLatestReviews(data))
+            .then(data => {
+                setLatestReviews(data);
+            })
 
     }, []);
 

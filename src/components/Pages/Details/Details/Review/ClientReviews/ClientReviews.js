@@ -12,13 +12,13 @@ const ClientReviews = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/reviews?email=${user?.email}`, {
+        fetch(`https://service-review-assignment11-server.vercel.app/reviews?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('reviewToken')}`
             }
         })
             .then(res => {
-                if (res.status === 401 || res.status === 403) {
+                if (res.status === 401) {
                     return logOut()
                 }
                 return res.json()
@@ -30,7 +30,7 @@ const ClientReviews = () => {
     const handleDelete = id => {
         const proceed = window.confirm('Are You Sure!, You Want To Delete Your Review?');
         if (proceed) {
-            fetch(`http://localhost:5000/reviews/${id}`, {
+            fetch(`https://service-review-assignment11-server.vercel.app/reviews/${id}`, {
                 method: 'DELETE',
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('reviewToken')}`

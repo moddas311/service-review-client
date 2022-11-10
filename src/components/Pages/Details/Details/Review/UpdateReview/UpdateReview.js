@@ -24,10 +24,11 @@ const UpdateReview = ({ service }) => {
             alert('Without Name you can not join my review section');
         }
         else {
-            fetch('http://localhost:5000/reviews', {
+            fetch('https://service-review-assignment11-server.vercel.app/reviews', {
                 method: 'POST',
                 headers: {
-                    'content-type': 'Application/json'
+                    'content-type': 'Application/json',
+                    authorization: `Bearer ${localStorage.getItem('reviewToken')}`
                 },
                 body: JSON.stringify(review)
             })

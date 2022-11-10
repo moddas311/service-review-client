@@ -11,7 +11,7 @@ const Details = () => {
     useTitle('Details')
 
     useEffect(() => {
-        fetch('http://localhost:5000/allservice')
+        fetch('https://service-review-assignment11-server.vercel.app/allservice')
             .then(res => res.json())
             .then(data => setServices(data));
     }, [])
