@@ -39,7 +39,7 @@ const Register = () => {
                 const user = result.user;
                 setUser(user);
             })
-            .catch(er => toast.error(er.message));
+            .catch(er => console.error(er.message));
     }
 
     return (
