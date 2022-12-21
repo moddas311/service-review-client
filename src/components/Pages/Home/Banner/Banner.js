@@ -6,7 +6,7 @@ const Banner = () => {
 
     return (
         <div className="card  bg-base-100 shadow-xl image-full">
-            <figure><img src={img3} alt="Shoes" /></figure>
+            <figure><img src={img3} alt="banner" /></figure>
             <div className="card-body">
                 <h2 className="card-title text-5xl pt-10">M0DD∆51R'S Photography</h2>
                 <p className='ml-[500px] text-xl text-gray-100 pt-10'>Hey I'm Moddasir And I'm a professional Photographer..!! <br />

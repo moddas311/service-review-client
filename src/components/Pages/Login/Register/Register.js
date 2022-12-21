@@ -26,7 +26,7 @@ const Register = () => {
                 navigate('/');
                 toast.success('User created successfully.');
             })
-            .catch(er => toast.error(er.message))
+            .catch(er => console.error(er.message))
     }
     const handleUpdateUserProfile = (name, photoURL) => {
         const profile = {
