@@ -5,7 +5,7 @@ import Latestreviews from './Latestreviews';
 
 const RecentReviews = () => {
 
-    const { user } = useContext(AuthContext);
+    const { loading } = useContext(AuthContext);
     const [latestReviews, setLatestReviews] = useState([]);
     useTitle('recentReviews')
 
@@ -18,6 +18,11 @@ const RecentReviews = () => {
             })
 
     }, []);
+
+
+    if (loading) {
+        return <progress className="progress w-full"></progress>
+    }
 
     return (
         <div className='my-10 p-10 border-red-400'>

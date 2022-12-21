@@ -6,6 +6,7 @@ import { AuthContext } from '../../../../context/AuthProvider/AuthProvider';
 import { GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import useTitle from '../../../../hooks/useTitle';
 import { setUtilitiesToken } from '../../../../utilities/utilities';
+import toast from 'react-hot-toast';
 
 
 const Login = () => {
@@ -15,7 +16,13 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
-    useTitle('Login')
+    useTitle('Login');
+
+
+    if (setUtilitiesToken) {
+        navigate(from, { replace: true });
+    }
+
 
     const handleLogin = event => {
         event.preventDefault();
@@ -44,6 +51,7 @@ const Login = () => {
                     .then(data => {
                         localStorage.setItem('reviewToken', data.token);
                         navigate(from, { replace: true });
+                        toast.success(`Welcome back ${user.displayName}`);
                     })
             })
             .catch(err => console.error(err))
@@ -55,6 +63,7 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 setUtilitiesToken(user);
+                toast.success(`Welcome back ${user.displayName}`);
             })
             .catch(er => console.error(er))
     }
@@ -65,13 +74,14 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 setUtilitiesToken(user);
+                toast.success(`Welcome back ${user.displayName}`);
             })
             .catch(er => console.error(er))
     }
 
 
     return (
-        <div className="hero min-h-screen bg-base-200">
+        <div className="hero min-h-screen py-10 bg-base-200">
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 <div className='text-center pt-3 font-bold'>
                     <h4 className='text-4xl mb-2 text-sky-500'>Welcome Back!</h4>

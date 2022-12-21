@@ -12,7 +12,6 @@ const NavBar = () => {
         logOut()
             .then(result => {
                 const user = result.user;
-                console.log(user);
             })
             .then(er => console.error(er));
     }

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../../../../../context/AuthProvider/AuthProvider';
 
 const UpdateReview = ({ service }) => {
@@ -35,7 +36,7 @@ const UpdateReview = ({ service }) => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.acknowledged) {
-                        alert('Thanks for your review');
+                        toast.success('Thanks for your review');
                         form.reset();
                     }
                 })

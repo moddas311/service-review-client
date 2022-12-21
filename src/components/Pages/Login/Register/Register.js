@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 import { AuthContext } from '../../../../context/AuthProvider/AuthProvider';
 import { setUtilitiesToken } from '../../../../utilities/utilities';
 
 const Register = () => {
 
     const { createUser, updateUserProfile, setUser } = useContext(AuthContext);
-
+    const navigate = useNavigate();
 
     const handleRegister = event => {
         event.preventDefault();
@@ -15,16 +16,17 @@ const Register = () => {
         const email = form.email.value;
         const photoURL = form.url.value;
         const password = form.password.value;
-        console.log(name, email, password, photoURL);
         createUser(email, password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
                 handleUpdateUserProfile(name, photoURL);
-                form.reset()
+                form.reset();
                 setUtilitiesToken(user);
+                navigate('/');
+                toast.success('User created successfully.');
             })
-            .then(er => console.error(er))
+            .catch(er => toast.error(er.message))
     }
     const handleUpdateUserProfile = (name, photoURL) => {
         const profile = {
@@ -37,7 +39,7 @@ const Register = () => {
                 const user = result.user;
                 setUser(user);
             })
-            .catch(er => console.error(er));
+            .catch(er => toast.error(er.message));
     }
 
     return (
